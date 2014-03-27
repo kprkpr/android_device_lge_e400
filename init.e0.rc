@@ -29,8 +29,8 @@ on emmc-fs
     mount ext4 /dev/block/mmcblk0p16 /cache nosuid nodev data=ordered,barrier=1
 
     #setprop ro.crypto.fuse_sdcard true
-    wait /dev/block/mmcblk0p21
-    mount ext4 /dev/block/mmcblk0p21 /data nosuid nodev noatime barrier=1,data=ordered,noauto_da_alloc,errors=continue
+    wait /dev/block/mmcblk0p20
+    mount ext4 /dev/block/mmcblk0p20 /data nosuid nodev noatime barrier=1,data=ordered,noauto_da_alloc,errors=continue
 
 
 # LGE_CHANGE_E [jyothishre.nk@lge.com] 20120215
@@ -114,6 +114,11 @@ on post-fs-data
     chown system system /data/logger
     chmod 0771 /data/logger
     # Log Service [END]
+
+    chown system system /sys/class/android_usb/android0/f_mass_storage/lun0/file
+    chmod 0660 /sys/class/android_usb/android0/f_mass_storage/lun0/file
+    chown system system /sys/class/android_usb/android0/f_mass_storage/lun1/file
+    chmod 0660 /sys/class/android_usb/android0/f_mass_storage/lun1/file
 
 on boot
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
@@ -270,6 +275,3 @@ service charger /charger
     user root
     group root
     oneshot
-
-on property:init.svc.charger=running
-    exec /system/bin/chgchk
