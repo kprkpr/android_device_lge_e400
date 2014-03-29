@@ -101,6 +101,7 @@ WIFI_EXT_MODULE_PATH := /system/lib/modules/librasdioif.ko
 WIFI_DRIVER_MODULE_PATH := /system/lib/modules/wlan.ko
 WIFI_EXT_MODULE_NAME := librasdioif
 WIFI_DRIVER_MODULE_NAME := wlan
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wext
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_WEXT_NO_COMBO_SCAN := true

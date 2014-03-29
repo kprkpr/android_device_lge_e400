@@ -24,7 +24,7 @@ endif
 WPA_SUPPL_DIR = external/wpa_supplicant_8
 WPA_SRC_FILE :=
 
-include $(WPA_SUPPL_DIR)/wpa_supplicant/android.config
+include $(WPA_SUPPL_DIR)/wpa_supplicant/.config
 
 WPA_SUPPL_DIR_INCLUDE = $(WPA_SUPPL_DIR)/src \
 	$(WPA_SUPPL_DIR)/src/common \
@@ -39,6 +39,10 @@ WPA_SUPPL_DIR_INCLUDE += external/libnl-headers
 WPA_SRC_FILE += driver_cmd_nl80211.c
 endif
 
+ifdef CONFIG_DRIVER_WEXT
+WPA_SRC_FILE += driver_cmd_wext.c
+endif
+
 # To force sizeof(enum) = 4
 L_CFLAGS += -mabi=aapcs-linux
 
@@ -49,7 +53,14 @@ endif
 ########################
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := lib_driver_cmd_qcwcn
+
+ifeq ($(BOARD_WPA_SUPPLICANT_DRIVER),WEXT)
+LOCAL_MODULE := lib_driver_cmd_wext
+endif
+ifeq ($(BOARD_WPA_SUPPLICANT_DRIVER),NL80211)
+LOCAL_MODULE := lib_driver_cmd_nl80211
+endif
+
 LOCAL_SHARED_LIBRARIES := libc libcutils
 LOCAL_CFLAGS := $(L_CFLAGS)
 LOCAL_SRC_FILES := $(WPA_SRC_FILE)
