@@ -1,5 +1,5 @@
-#
-# Copyright (C) 2012 The Android Open Source Project
+# Copyright (C) 2013 The Android Open Source Project
+# Copyright (C) 2013 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,12 +12,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-# This file is executed by build/envsetup.sh, and can use anything
-# defined in envsetup.sh.
-#
-# In particular, you can add lunch options with the add_lunch_combo
-# function: add_lunch_combo generic-eng
+LOCAL_PATH := $(call my-dir)
 
-add_lunch_combo e400
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := healthd_board_lge-msm7x27.cpp
+LOCAL_MODULE := libhealthd.msm7x27
+LOCAL_C_INCLUDES := system/core/healthd
+include $(BUILD_STATIC_LIBRARY)
+
